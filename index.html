@@ -5,7 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ジャグラー設定推測 - パチスロ設定判別アプリ</title>
     <meta name="description" content="ジャグラーシリーズの設定を統計的に推測するiOS/Androidアプリ。8機種対応、無料でダウンロード可能。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --dark-bg: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --border: #e2e8f0;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,26 +36,30 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: var(--dark);
+            background: var(--white);
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
         /* Header */
         header {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 20px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow-sm);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid var(--border);
         }
 
         .header-content {
@@ -42,46 +69,107 @@
         }
 
         .logo {
-            font-size: 24px;
-            font-weight: 800;
-            color: #667eea;
+            font-size: 22px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+
+        nav {
+            display: flex;
+            gap: 32px;
         }
 
         nav a {
-            margin-left: 30px;
             text-decoration: none;
-            color: #333;
+            color: var(--dark);
             font-weight: 600;
-            transition: color 0.3s;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
         }
 
         nav a:hover {
-            color: #667eea;
+            color: var(--primary);
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         /* Hero Section */
         .hero {
-            padding: 80px 0;
+            position: relative;
+            padding: 120px 0 100px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
             text-align: center;
-            color: white;
+            color: var(--white);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .hero h1 {
-            font-size: 48px;
-            font-weight: 800;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 900;
+            margin-bottom: 24px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            letter-spacing: -0.02em;
+            line-height: 1.2;
         }
 
         .hero p {
-            font-size: 20px;
-            margin-bottom: 40px;
+            font-size: clamp(16px, 2vw, 20px);
+            margin-bottom: 48px;
             opacity: 0.95;
+            font-weight: 500;
         }
 
         .download-buttons {
             display: flex;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -89,204 +177,316 @@
         .btn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            padding: 15px 30px;
+            gap: 12px;
+            padding: 16px 32px;
             border-radius: 12px;
             text-decoration: none;
             font-weight: 700;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-lg);
         }
 
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            box-shadow: var(--shadow-xl);
         }
 
         .btn-ios {
-            background: #000;
-            color: white;
+            background: var(--dark);
+            color: var(--white);
+        }
+
+        .btn-ios:hover {
+            background: var(--dark-bg);
         }
 
         .btn-android {
             background: #3DDC84;
-            color: #000;
+            color: var(--dark);
+        }
+
+        .btn-android:hover {
+            background: #2ec771;
         }
 
         /* Screenshots */
         .screenshots {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: var(--light-gray);
         }
 
-        .screenshots h2 {
+        .section-header {
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-            color: #333;
+            margin-bottom: 64px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--primary-light);
+            color: var(--white);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 900;
+            color: var(--dark);
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            font-size: 18px;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .screenshot-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
             justify-items: center;
         }
 
         .screenshot-item {
             max-width: 350px;
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-item:hover {
+            transform: scale(1.05);
         }
 
         .screenshot-item img {
             width: 100%;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-xl);
         }
 
         /* Features */
         .features {
-            padding: 80px 0;
-            background: #f8f9fa;
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-            color: #333;
+            padding: 100px 0;
+            background: var(--white);
         }
 
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
         }
 
         .feature-card {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
         }
 
         .feature-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-light);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
         }
 
         .feature-icon {
-            font-size: 48px;
-            margin-bottom: 20px;
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-icon-text {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--white);
         }
 
         .feature-card h3 {
             font-size: 22px;
-            margin-bottom: 15px;
-            color: #667eea;
+            font-weight: 800;
+            margin-bottom: 16px;
+            color: var(--dark);
         }
 
         .feature-card p {
-            color: #666;
+            color: var(--gray);
             line-height: 1.8;
+            font-size: 15px;
         }
 
         /* Supported Machines */
         .machines {
-            padding: 80px 0;
-            background: white;
+            padding: 100px 0;
+            background: var(--dark);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
         }
 
-        .machines h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
-            color: #333;
+        .machines::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .machines .section-badge {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .machines .section-title {
+            color: var(--white);
+        }
+
+        .machines .section-description {
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .machine-list {
+            position: relative;
+            z-index: 1;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
         .machine-item {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 24px;
+            border-radius: 16px;
             text-align: center;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .machine-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-4px);
         }
 
         /* Disclaimer */
         .disclaimer {
-            padding: 60px 0;
-            background: #fff3cd;
-            border-top: 3px solid #ffc107;
-            border-bottom: 3px solid #ffc107;
+            padding: 80px 0;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-top: 3px solid var(--warning);
+            border-bottom: 3px solid var(--warning);
         }
 
-        .disclaimer h2 {
-            text-align: center;
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #856404;
+        .disclaimer .section-badge {
+            background: var(--warning);
+        }
+
+        .disclaimer .section-title {
+            color: #78350f;
         }
 
         .disclaimer-content {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            border-left: 4px solid #ffc107;
+            background: var(--white);
+            padding: 48px;
+            border-radius: 20px;
+            border-left: 6px solid var(--warning);
+            box-shadow: var(--shadow-lg);
         }
 
         .disclaimer-content p {
-            margin-bottom: 15px;
-            color: #856404;
-            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #78350f;
+            line-height: 1.9;
+            font-size: 16px;
+        }
+
+        .disclaimer-content p strong {
+            font-weight: 800;
+            font-size: 18px;
         }
 
         .disclaimer-content ul {
-            margin-left: 20px;
-            margin-bottom: 15px;
+            margin-left: 24px;
+            margin-bottom: 20px;
         }
 
         .disclaimer-content li {
-            margin-bottom: 10px;
-            color: #856404;
+            margin-bottom: 12px;
+            color: #78350f;
+            line-height: 1.8;
         }
 
         /* Footer */
         footer {
-            background: #2c3e50;
-            color: white;
-            padding: 40px 0;
+            background: var(--dark);
+            color: var(--white);
+            padding: 60px 0 40px;
             text-align: center;
         }
 
+        footer p {
+            margin-bottom: 16px;
+            opacity: 0.8;
+        }
+
         footer a {
-            color: #667eea;
+            color: var(--primary-light);
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 16px;
+            font-weight: 600;
+            transition: color 0.3s ease;
         }
 
         footer a:hover {
-            text-decoration: underline;
+            color: var(--white);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .hero p {
-                font-size: 16px;
+            .hero {
+                padding: 80px 0 60px;
             }
 
             .download-buttons {
@@ -296,12 +496,35 @@
 
             .btn {
                 width: 100%;
-                max-width: 300px;
+                max-width: 320px;
                 justify-content: center;
             }
 
             nav {
                 display: none;
+            }
+
+            .feature-card,
+            .disclaimer-content {
+                padding: 32px 24px;
+            }
+
+            .screenshots,
+            .features,
+            .machines,
+            .disclaimer {
+                padding: 60px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .feature-grid,
+            .machine-list {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -311,7 +534,7 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">🎰 ジャグラー設定推測</div>
+                <div class="logo">ジャグラー設定推測</div>
                 <nav>
                     <a href="#features">機能</a>
                     <a href="#machines">対応機種</a>
@@ -324,21 +547,24 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>ジャグラーの設定を<br>データで推測</h1>
-            <p>8機種対応・統計的推測・完全無料</p>
-            <div class="download-buttons">
-                <a href="https://apps.apple.com/app/id[PLACEHOLDER]" class="btn btn-ios">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                    </svg>
-                    App Store
-                </a>
-                <a href="https://play.google.com/store/apps/details?id=com.yourcompany.juggler" class="btn btn-android">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
-                    </svg>
-                    Google Play
-                </a>
+            <div class="hero-content">
+                <div class="hero-badge">8機種対応・完全無料</div>
+                <h1>ジャグラーの設定を<br>データで推測</h1>
+                <p>統計的アプローチによる高精度な設定判別アプリ</p>
+                <div class="download-buttons">
+                    <a href="https://apps.apple.com/app/id[PLACEHOLDER]" class="btn btn-ios">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                        </svg>
+                        App Store
+                    </a>
+                    <a href="https://play.google.com/store/apps/details?id=com.yourcompany.juggler" class="btn btn-android">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.5,12.92 20.16,13.19L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/>
+                        </svg>
+                        Google Play
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -346,7 +572,11 @@
     <!-- Screenshots -->
     <section class="screenshots">
         <div class="container">
-            <h2>📱 アプリ画面</h2>
+            <div class="section-header">
+                <div class="section-badge">Screenshots</div>
+                <h2 class="section-title">アプリ画面</h2>
+                <p class="section-description">シンプルで使いやすいインターフェース</p>
+            </div>
             <div class="screenshot-grid">
                 <div class="screenshot-item">
                     <img src="images/screenshot1.png" alt="機種選択画面">
@@ -364,35 +594,51 @@
     <!-- Features -->
     <section class="features" id="features">
         <div class="container">
-            <h2>🎯 主な機能</h2>
+            <div class="section-header">
+                <div class="section-badge">Features</div>
+                <h2 class="section-title">主な機能</h2>
+                <p class="section-description">データ分析に基づいた高精度な設定推測</p>
+            </div>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">📊</div>
+                    <div class="feature-icon">
+                        <span class="feature-icon-text">統計</span>
+                    </div>
                     <h3>統計的推測</h3>
                     <p>ベイズ推定による科学的なアプローチで、BIG/REG/ブドウ回数から各設定の確率を計算します。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎰</div>
+                    <div class="feature-icon">
+                        <span class="feature-icon-text">8台</span>
+                    </div>
                     <h3>8機種対応</h3>
                     <p>アイムジャグラー、ゴーゴージャグラーなど、人気のジャグラーシリーズ8機種に対応しています。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📈</div>
+                    <div class="feature-icon">
+                        <span class="feature-icon-text">視覚</span>
+                    </div>
                     <h3>視覚的な結果表示</h3>
                     <p>棒グラフで各設定の確率を一目で確認。最も可能性の高い設定を強調表示します。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">💯</div>
+                    <div class="feature-icon">
+                        <span class="feature-icon-text">実測</span>
+                    </div>
                     <h3>実測値表示</h3>
                     <p>BIG確率、REG確率、合算確率、ブドウ確率を自動計算して表示します。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🆓</div>
+                    <div class="feature-icon">
+                        <span class="feature-icon-text">無料</span>
+                    </div>
                     <h3>完全無料</h3>
                     <p>すべての機能を無料で利用できます。課金要素はありません。</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🔒</div>
+                    <div class="feature-icon">
+                        <span class="feature-icon-text">保護</span>
+                    </div>
                     <h3>プライバシー保護</h3>
                     <p>データはすべて端末内で処理。外部サーバーへの送信は一切ありません。</p>
                 </div>
@@ -403,7 +649,11 @@
     <!-- Supported Machines -->
     <section class="machines" id="machines">
         <div class="container">
-            <h2>🎲 対応機種</h2>
+            <div class="section-header">
+                <div class="section-badge">Machines</div>
+                <h2 class="section-title">対応機種</h2>
+                <p class="section-description">人気のジャグラーシリーズに幅広く対応</p>
+            </div>
             <div class="machine-list">
                 <div class="machine-item">アイムジャグラーEX</div>
                 <div class="machine-item">ゴーゴージャグラー3</div>
@@ -420,7 +670,10 @@
     <!-- Disclaimer -->
     <section class="disclaimer">
         <div class="container">
-            <h2>⚠️ 重要な注意事項</h2>
+            <div class="section-header">
+                <div class="section-badge">Important</div>
+                <h2 class="section-title">重要な注意事項</h2>
+            </div>
             <div class="disclaimer-content">
                 <p><strong>このアプリは非公式ツールです</strong></p>
                 <ul>

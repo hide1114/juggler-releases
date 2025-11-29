@@ -4,7 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>プライバシーポリシー - ジャグラー設定推測</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #8b5cf6;
+            --warning: #f59e0b;
+            --dark: #0f172a;
+            --dark-bg: #1e293b;
+            --gray: #64748b;
+            --light-gray: #f1f5f9;
+            --border: #e2e8f0;
+            --white: #ffffff;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,113 +32,269 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.8;
-            color: #333;
-            background: #f8f9fa;
+            color: var(--dark);
+            background: var(--light-gray);
         }
 
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 0 24px;
         }
 
         header {
-            background: white;
-            padding: 30px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 80px 0;
+            margin-bottom: 60px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        header .container {
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
-            font-size: 32px;
-            color: #667eea;
+            font-size: clamp(32px, 5vw, 48px);
+            color: var(--white);
             text-align: center;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
         }
 
         .content {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            background: var(--white);
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 60px;
+        }
+
+        .meta {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--light-gray);
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--gray);
+            margin-bottom: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .intro {
+            padding: 32px;
+            background: var(--light-gray);
+            border-radius: 16px;
+            margin-bottom: 48px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .intro p {
+            color: var(--dark);
+            font-size: 16px;
+            line-height: 1.9;
         }
 
         h2 {
-            font-size: 24px;
-            color: #667eea;
-            margin-top: 40px;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
+            font-size: 28px;
+            color: var(--dark);
+            margin-top: 56px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 3px solid var(--primary);
+            font-weight: 900;
+            letter-spacing: -0.01em;
+            position: relative;
         }
 
-        h2:first-child {
+        h2::before {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        h2:first-of-type {
             margin-top: 0;
         }
 
         h3 {
-            font-size: 18px;
-            color: #555;
-            margin-top: 25px;
-            margin-bottom: 15px;
+            font-size: 20px;
+            color: var(--dark);
+            margin-top: 32px;
+            margin-bottom: 16px;
+            font-weight: 800;
+            padding-left: 16px;
+            border-left: 4px solid var(--primary-light);
         }
 
         p {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-size: 16px;
+            line-height: 1.9;
         }
 
         ul, ol {
-            margin-left: 25px;
-            margin-bottom: 20px;
+            margin-left: 28px;
+            margin-bottom: 24px;
         }
 
         li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            color: var(--dark);
+            line-height: 1.8;
+            padding-left: 8px;
+        }
+
+        li::marker {
+            color: var(--primary);
+            font-weight: 700;
         }
 
         .highlight {
-            background: #fff3cd;
-            padding: 20px;
-            border-left: 4px solid #ffc107;
-            margin: 20px 0;
-            border-radius: 4px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 32px;
+            border-left: 6px solid var(--warning);
+            margin: 32px 0;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .highlight strong {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 16px;
+            color: #78350f;
+            font-weight: 900;
+        }
+
+        .highlight p,
+        .highlight ul,
+        .highlight li {
+            color: #78350f;
+        }
+
+        .info-box {
+            background: var(--light-gray);
+            padding: 28px;
+            border-radius: 12px;
+            margin: 24px 0;
+            border: 2px solid var(--border);
+        }
+
+        .info-box strong {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .info-box p {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+            text-decoration: underline;
         }
 
         .back-link {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 12px 24px;
-            background: #667eea;
-            color: white;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 48px;
+            padding: 16px 32px;
+            background: var(--primary);
+            color: var(--white);
             text-decoration: none;
-            border-radius: 8px;
-            transition: background 0.3s;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
         }
 
         .back-link:hover {
-            background: #5568d3;
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            text-decoration: none;
         }
 
         footer {
             text-align: center;
-            margin-top: 60px;
-            padding: 30px 0;
-            color: #666;
-            border-top: 1px solid #ddd;
+            padding: 40px 0;
+            color: var(--gray);
+            font-size: 14px;
         }
 
         @media (max-width: 768px) {
             .content {
-                padding: 20px;
+                padding: 32px 24px;
             }
 
             h1 {
-                font-size: 24px;
+                font-size: 32px;
             }
 
             h2 {
-                font-size: 20px;
+                font-size: 24px;
+            }
+
+            h3 {
+                font-size: 18px;
+            }
+
+            header {
+                padding: 60px 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .content {
+                padding: 24px 16px;
+            }
+
+            .highlight,
+            .info-box {
+                padding: 20px;
             }
         }
     </style>
@@ -132,9 +308,11 @@
 
     <div class="container">
         <div class="content">
-            <p><strong>最終更新日: 2024年11月30日</strong></p>
+            <div class="meta">最終更新日: 2024年11月30日</div>
 
-            <p>ジャグラー設定推測（以下「本アプリ」）は、ユーザーのプライバシーを尊重し、個人情報の保護に最大限の注意を払っています。本プライバシーポリシーは、本アプリにおける情報の取り扱いについて説明するものです。</p>
+            <div class="intro">
+                <p>ジャグラー設定推測（以下「本アプリ」）は、ユーザーのプライバシーを尊重し、個人情報の保護に最大限の注意を払っています。本プライバシーポリシーは、本アプリにおける情報の取り扱いについて説明するものです。</p>
+            </div>
 
             <h2>1. 収集する情報</h2>
 
@@ -154,8 +332,9 @@
                 <li>アプリの設定情報（同意状況など）</li>
             </ul>
 
-            <div class="highlight">
-                <strong>重要：</strong> これらのデータは、すべて端末内でのみ保存・処理されます。外部サーバーへの送信は一切行いません。
+            <div class="info-box">
+                <strong>重要</strong>
+                <p>これらのデータは、すべて端末内でのみ保存・処理されます。外部サーバーへの送信は一切行いません。</p>
             </div>
 
             <h2>2. 情報の使用目的</h2>
@@ -211,7 +390,7 @@
 
             <h2>9. 免責事項</h2>
             <div class="highlight">
-                <p><strong>本アプリは以下の点についてご了承ください：</strong></p>
+                <strong>本アプリは以下の点についてご了承ください</strong>
                 <ul>
                     <li>本アプリは、パチスロメーカーとは一切関係のない非公式ツールです</li>
                     <li>推測結果の正確性を保証するものではありません</li>
@@ -232,7 +411,12 @@
             <h2>12. 同意</h2>
             <p>本アプリを使用することにより、本プライバシーポリシーに同意したものとみなされます。</p>
 
-            <a href="index.html" class="back-link">← トップページに戻る</a>
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                トップページに戻る
+            </a>
         </div>
 
         <footer>
